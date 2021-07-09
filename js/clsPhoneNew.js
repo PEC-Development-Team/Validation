@@ -9,6 +9,10 @@ class clsPhone
 		//Triggers for the validation
 		this.target.addEventListener('input', this.validationTrigger.bind(this));
 		this.target.addEventListener('blur', this.formatTrigger.bind(this));
+
+		//Removal of messages currently in the HTML and addition of new message.
+		this.removeOldTooltips();
+		this.placeDefaultTooltips();
 	}	
 
 	validationTrigger()
@@ -41,8 +45,6 @@ class clsPhone
 
 	validationToggle(showIfTrue)
 	{
-		// const oldMessages = this.target.querySelectorAll('.valid-feedback', '.invalid-feedback', '.valid-tooltip', '.invalid-tooltip');
-		// oldMessages.forEach(element => element.remove());
 		if(showIfTrue)
 		{
 			this.target.classList.remove('is-invalid');
@@ -66,5 +68,28 @@ class clsPhone
 		this.target.value = this.phoneNumberFormatted;
 		this.phoneValidator(this.target.value);
 		return this.phoneNumberFormatted;
+	}
+
+	removeOldTooltips()
+	{
+		const parent = this.target.parentElement;
+		let oldTooltips = [parent.querySelectorAll('.invalid-tooltip')];
+		oldTooltips.push(parent.querySelectorAll('.valid-tooltip'));
+		oldTooltips.forEach(element => 
+		{
+			element.forEach(element => element.remove());
+		});
+	}
+
+	placeDefaultTooltips()
+	{
+		let validTooltip = document.createElement('div');
+		let invalidTooltip = document.createElement('div');
+		validTooltip.classList.add('valid-tooltip');
+		invalidTooltip.classList.add('invalid-tooltip');
+		validTooltip.innerHTML = "Looks Good!";
+		invalidTooltip.innerHTML = "Must be a 10 digit phone number or 4 digit extension";
+		//this.target.parentNode.appendChild(validTooltip);
+		this.target.parentNode.appendChild(invalidTooltip);
 	}
 }

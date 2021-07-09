@@ -13,7 +13,7 @@ class clsValidator
 
         this.options = options;
         this.containerElement = this.options.containerElement;
-        this.validationElements = this.containerElement.querySelectorAll('input.phone');
+        this.validationElements = this.containerElement.querySelectorAll('input.phone', 'input.EDIPI');
         this.phoneCount = 0;
         this.phones = [];
 
