@@ -16,6 +16,7 @@ class clsValidator
         this.validationElements = [];
         console.log(this.validationElements);
         this.phones = [];
+        this.EDIPIS = [];
 
         this.findElements(this.containerElement);
         this.initializeElements(this.validationElements);
@@ -25,7 +26,6 @@ class clsValidator
     {
         this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.EDIPI'));
-        console.log(this.validationElements);
     }
 
     initializeElements(validationList)
@@ -53,7 +53,10 @@ class clsValidator
                 }
 
                 // Instanciate EDIPI Elements
-
+                if (element.classList.contains('EDIPI'))
+                {
+                    this.EDIPIS.push(new clsEDIPI(element));
+                }
             });
 
         });
