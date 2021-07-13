@@ -15,13 +15,10 @@ class clsValidator
         this.containerElement = this.options.containerElement;
         this.validationElements = [];
         console.log(this.validationElements);
-        this.phoneCount = 0;
         this.phones = [];
 
         this.findElements(this.containerElement);
         this.initializeElements(this.validationElements);
-        //this.removeOldTooltips();
-        //this.validate(this.validationElements);
 	}
 
     findElements()
@@ -36,6 +33,7 @@ class clsValidator
         validationList.forEach(List => 
         {
             List.forEach(element => {
+
                 // Remove old tooltips
                 const parent = element.parentElement;
                 let oldTooltips = [parent.querySelectorAll('.invalid-tooltip')];
@@ -51,7 +49,6 @@ class clsValidator
                 // Instanciate Phone Elements
                 if (element.classList.contains('phone'))
                 {
-                    this.phoneCount += 1;
                     this.phones.push(new clsPhone(element));
                 }
 
