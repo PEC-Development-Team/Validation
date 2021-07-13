@@ -11,7 +11,7 @@ class clsPhone
 		this.target.addEventListener('blur', this.formatTrigger.bind(this));
 
 		//Removal of messages currently in the HTML and addition of new message.
-		this.removeOldTooltips();
+		//this.removeOldTooltips();
 		this.placeDefaultTooltips();
 	}	
 
@@ -59,7 +59,6 @@ class clsPhone
 	{
 		if (!numberToFormat || numberToFormat === '')
 		{
-			//this.Reset();
 			return null;
 		}
 		const phoneFormat = /^\D*(\d{3})\D*(\d{3})\D*(\d{4})\D*$/;
@@ -70,26 +69,16 @@ class clsPhone
 		return this.phoneNumberFormatted;
 	}
 
-	removeOldTooltips()
-	{
-		const parent = this.target.parentElement;
-		let oldTooltips = [parent.querySelectorAll('.invalid-tooltip')];
-		oldTooltips.push(parent.querySelectorAll('.valid-tooltip'));
-		oldTooltips.forEach(element => 
-		{
-			element.forEach(element => element.remove());
-		});
-	}
-
 	placeDefaultTooltips()
 	{
-		let validTooltip = document.createElement('div');
 		let invalidTooltip = document.createElement('div');
-		validTooltip.classList.add('valid-tooltip');
 		invalidTooltip.classList.add('invalid-tooltip');
-		validTooltip.innerHTML = "Looks Good!";
 		invalidTooltip.innerHTML = "Must be a 10 digit phone number or 4 digit extension";
-		//this.target.parentNode.appendChild(validTooltip);
 		this.target.parentNode.appendChild(invalidTooltip);
+
+		//let validTooltip = document.createElement('div');
+		//validTooltip.classList.add('valid-tooltip');
+		//validTooltip.innerHTML = "Looks Good!";
+		//this.target.parentNode.appendChild(validTooltip);
 	}
 }

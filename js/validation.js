@@ -13,33 +13,53 @@ class clsValidator
 
         this.options = options;
         this.containerElement = this.options.containerElement;
-        this.validationElements = this.containerElement.querySelectorAll('input.phone', 'input.EDIPI');
+        this.validationElements = [];
+        console.log(this.validationElements);
         this.phoneCount = 0;
         this.phones = [];
 
+        this.findElements(this.containerElement);
         this.initializeElements(this.validationElements);
-
-        //this.findElements(this.containerElement);
+        //this.removeOldTooltips();
         //this.validate(this.validationElements);
 	}
 
-    // findElements(targetElement)
-    // {
-    //     this.validationElements = targetElement.querySelectorAll('input.phone');
-    // }
-
-    initializeElements(elements)
+    findElements()
     {
-        //elements.forEach(element => element.value = "");
-        elements.forEach(element => element.classList.remove("is-valid", "is-invalid"));
-        elements.forEach(element => 
+        this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
+        this.validationElements.push(this.containerElement.querySelectorAll('input.EDIPI'));
+        console.log(this.validationElements);
+    }
+
+    initializeElements(validationList)
+    {
+        validationList.forEach(List => 
         {
-            if (element.classList.contains('phone'))
-            {
-                this.phoneCount += 1;
-                this.phones.push(new clsPhone(element));
-            }
+            List.forEach(element => {
+                // Remove old tooltips
+                const parent = element.parentElement;
+                let oldTooltips = [parent.querySelectorAll('.invalid-tooltip')];
+                oldTooltips.push(parent.querySelectorAll('.valid-tooltip'));
+                oldTooltips.forEach(tooltipList => 
+                {
+                    tooltipList.forEach(tooltip => tooltip.remove());
+                });
+
+                // Remove prior validation classes
+                element.classList.remove("is-valid", "is-invalid");
+
+                // Instanciate Phone Elements
+                if (element.classList.contains('phone'))
+                {
+                    this.phoneCount += 1;
+                    this.phones.push(new clsPhone(element));
+                }
+
+                // Instanciate EDIPI Elements
+
+            });
+
         });
     }
+
 }
-``
