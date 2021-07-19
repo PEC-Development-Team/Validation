@@ -38,6 +38,8 @@ class clsEDIPI
 
     validationToggle(showIfTrue)
 	{
+
+		this.placeDefaultTooltips();
 		if(showIfTrue)
 		{
 			this.target.classList.remove('is-invalid');
@@ -50,6 +52,13 @@ class clsEDIPI
 
 	placeDefaultTooltips()
 	{
+		const parent = this.target.parentElement;
+    	let oldTooltips = [parent.querySelectorAll('.invalid-tooltip')];
+     	oldTooltips.push(parent.querySelectorAll('.valid-tooltip'));
+     	oldTooltips.forEach(tooltipList => 
+     	{
+         tooltipList.forEach(tooltip => tooltip.remove());
+     	});
 		let invalidTooltip = document.createElement('div');
 		invalidTooltip.classList.add('invalid-tooltip');
 		invalidTooltip.innerHTML = "Must be a valid EDIPI";
