@@ -13,10 +13,15 @@ class clsValidator
 
         this.options = options;
         this.containerElement = this.options.containerElement;
+        this.submitBtn = this.options.submitBtn;
         this.validationElements = [];
         console.log(this.validationElements);
+        this.requiredList = [];
+        this.requiredElement;
         this.phones = [];
         this.EDIPIS = [];
+        this.submitBtn = document.querySelector('.submitBtn');
+
 
         this.findElements(this.containerElement);
         this.initializeElements(this.validationElements);
@@ -24,6 +29,7 @@ class clsValidator
 
     findElements()
     {
+        this.validationElements.push(this.containerElement.querySelectorAll('input.required'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.EDIPI'));
     }
@@ -45,6 +51,15 @@ class clsValidator
 
                 // Remove prior validation classes
                 element.classList.remove("is-valid", "is-invalid");
+
+                // Add required elements to list
+                if (element.classList.contains('required'))
+                {
+                    this.requiredList.push(element);
+                }
+
+                // Instanciate Required Element
+                this.requiredElement = new clsRequired(this.requiredList, this.submitBtn);
 
                 // Instanciate Phone Elements
                 if (element.classList.contains('phone'))
