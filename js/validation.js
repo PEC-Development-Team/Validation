@@ -20,6 +20,7 @@ class clsValidator
         this.requiredElement;
         this.phones = [];
         this.EDIPIS = [];
+        this.emails = [];
         this.submitBtn = document.querySelector('.submitBtn');
 
 
@@ -32,6 +33,7 @@ class clsValidator
         this.validationElements.push(this.containerElement.querySelectorAll('input.required'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.EDIPI'));
+        this.validationElements.push(this.containerElement.querySelectorAll('input.email'));
     }
 
     initializeElements(validationList)
@@ -71,6 +73,11 @@ class clsValidator
                 if (element.classList.contains('EDIPI'))
                 {
                     this.EDIPIS.push(new clsEDIPI(element));
+                }
+
+                if (element.classList.contains('email'))
+                {
+                    this.emails.push(new clsEmail(element));
                 }
             });
 

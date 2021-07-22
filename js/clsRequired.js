@@ -16,13 +16,22 @@ class clsRequired
 			{
 				if (target.value === '' || null)
 				{
+					console.log(target.value);
 					this.placeRequiredTooltip(target);
 					target.classList.remove('is-valid');
 					target.classList.add('is-invalid');
 					this.isValid = false;
+					return;
 				}
+				target.classList.remove('is-invalid');
+				target.classList.add('is-valid');
 			});
 	}
+
+	// validationTriggerOff(target)
+	// {
+
+	// }
 
 	placeRequiredTooltip(target)
 	{
