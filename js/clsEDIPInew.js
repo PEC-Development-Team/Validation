@@ -1,6 +1,6 @@
 class clsEDIPI
 {
-	constructor(target)
+	constructor(target, GlobalEDIPI)
 	{
 		this.target = target;
 		this.isValid;
@@ -8,6 +8,7 @@ class clsEDIPI
 
 		//Validation Trigger
 		this.target.addEventListener('input', this.validationTrigger.bind(this));
+		this.target.addEventListener('blur', () => this.updateGlobalEDIPI(GlobalEDIPI));
 
 		//Addition of default messages.
 		this.placeDefaultTooltips();
@@ -17,6 +18,13 @@ class clsEDIPI
 	{
 		this.EDIPI = this.target.value;
 		this.EDIPIValidator(this.EDIPI);
+	}
+
+	updateGlobalEDIPI(GlobalEDIPI)
+	{
+		GlobalEDIPI = this.target.value;
+		return GlobalEDIPI;
+		console.log(GlobalEDIPI);
 	}
 
 	EDIPIValidator(EDIPItoValidate)
