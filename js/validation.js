@@ -15,14 +15,17 @@ class clsValidator
         this.containerElement = this.options.containerElement;
         this.submitBtn = this.options.submitBtn;
         this.validationElements = [];
-        console.log(this.validationElements);
-        this.requiredList = [];
-        this.requiredElement;
-        this.phones = [];
-        this.EDIPIS = [];
-        this.emails = [];
-        this.submitBtn = document.querySelector('.submitBtn');
 
+        this.requiredElement;
+        this.requiredList = [];
+
+        this.edipiList = [];
+        this.edipiElement;
+
+        this.pivList = [];
+
+        this.phonesList = [];
+        this.emailsList = [];
 
         this.findElements(this.containerElement);
         this.initializeElements(this.validationElements);
@@ -31,13 +34,15 @@ class clsValidator
     findElements()
     {
         this.validationElements.push(this.containerElement.querySelectorAll('input.required'));
-        this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.EDIPI'));
+        this.validationElements.push(this.containerElement.querySelectorAll('input.PIV'));
+        this.validationElements.push(this.containerElement.querySelectorAll('input.phone'));
         this.validationElements.push(this.containerElement.querySelectorAll('input.email'));
     }
 
     initializeElements(validationList)
     {
+        console.log(validationList);
         validationList.forEach(List => 
         {
             List.forEach(element => {
@@ -66,18 +71,24 @@ class clsValidator
                 // Instanciate Phone Elements
                 if (element.classList.contains('phone'))
                 {
-                    this.phones.push(new clsPhone(element));
+                    this.phonesList.push(new clsPhone(element));
                 }
 
                 // Instanciate EDIPI Elements
                 if (element.classList.contains('EDIPI'))
                 {
-                    this.EDIPIS.push(new clsEDIPI(element));
+                    this.edipiList.push(new clsEDIPI(element));
+                    this.edipiElement = element;
+                }
+
+                if (element.classList.contains('PIV'))
+                {
+                    this.pivList.push(new clsPIV(element, this.edipiElement));
                 }
 
                 if (element.classList.contains('email'))
                 {
-                    this.emails.push(new clsEmail(element));
+                    this.emailsList.push(new clsEmail(element));
                 }
             });
 
